@@ -23,6 +23,7 @@ public:
 protected:
 	bool canMove;
 	bool isInvincible;
+	float moveSpeedRatio;
 	int sHealthPoint;
 	int sDefencePoint;
 	int sActorType;

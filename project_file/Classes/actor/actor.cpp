@@ -11,6 +11,7 @@ actor::actor()
 	isInvincible = false;
 	delegateSprite = nullptr;
 	sActorType = at_null;
+	moveSpeedRatio = 1.0;
 }
 void actor::bindSprite(cocos2d::Sprite* sprite)
 {
