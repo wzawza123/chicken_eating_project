@@ -7,7 +7,10 @@
 #ifndef actor_h
 #define actor_h
 #include<cocos2d.h>
-class actor:public cocos2d::Node
+#include "const.h"
+using namespace cocos2d;
+using namespace actorConsts;
+class actor:public Node
 {
 private:
 public:
@@ -16,11 +19,13 @@ public:
 	int getDefencePoint();
 	bool doDamage(int attackPoint);
 protected:
-	cocos2d::Sprite* delegateSprite;
+	Sprite* delegateSprite;
 	bool canMove;
 	bool isInvincible;
 	int sHealthPoint;
 	int sDefencePoint;
-	void bindSprite(cocos2d::Sprite* sprite);
+	int sActorType;
+	void bindSprite(Sprite* sprite);
+	bool bindPhysicalBody();
 };
 #endif

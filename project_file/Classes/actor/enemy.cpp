@@ -4,6 +4,7 @@
 using namespace cocos2d;
 enemy::enemy()
 {
+    sActorType = at_enemy;
     bindSprite(Sprite::create("enemy.png"));
     if (delegateSprite == nullptr)
     {
