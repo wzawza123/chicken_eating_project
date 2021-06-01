@@ -14,12 +14,13 @@ class actor:public Node
 {
 private:
 public:
+	Sprite* delegateSprite;
 	actor();
 	int getHealthPoint();
 	int getDefencePoint();
 	bool doDamage(int attackPoint);
+	Vec2 getSpritePosition();
 protected:
-	Sprite* delegateSprite;
 	bool canMove;
 	bool isInvincible;
 	int sHealthPoint;

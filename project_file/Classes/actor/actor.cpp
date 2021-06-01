@@ -56,3 +56,7 @@ bool actor::bindPhysicalBody()
 		delegateSprite->setPhysicsBody(phyBody);
 	}
 }
+Vec2 actor::getSpritePosition()
+{
+	return delegateSprite->getPosition();
+}
