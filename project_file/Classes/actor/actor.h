@@ -11,8 +11,10 @@ class actor:public cocos2d::Node
 {
 private:
 public:
+	actor();
 	int getHealthPoint();
 	int getDefencePoint();
+	bool doDamage(int attackPoint);
 protected:
 	cocos2d::Sprite* delegateSprite;
 	bool canMove;
