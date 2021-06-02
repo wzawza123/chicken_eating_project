@@ -1,0 +1,44 @@
+//
+//  heroUI.h
+//  PUBG
+//
+//  Created by PC1 on 2021/5/23.
+//
+
+#ifndef heroUI_h
+#define heroUI_h
+
+#pragma once
+#include <cocos2d.h>
+#include "actor.h"
+using namespace cocos2d;
+//#include "scene/SingleModeRuntimeScene.h"
+
+/*
+class HeroUI:public actor
+{
+public:
+    CREATE_FUNC(HeroUI)
+
+    bool init()override;
+
+    //
+    void scheduleUI(float dt);
+
+protected:
+    Sprite* m_pSprite;
+    ProgressTimer* m_pHealth;
+    ProgressTimer* m_pArmor;
+
+    Label* m_pHealthMessage;
+    Label* m_pArmorMessage;
+    //Label* m_pCoinMessage;
+
+    //actor *m_pHero;
+    int m_presentHP;
+    int m_presentArmor;
+    //int m_presntCoin;
+};
+*/
+#endif /* heroUI_h */
+
