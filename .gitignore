@@ -16,3 +16,5 @@ project_file/.cocos-project.json
 project_file/CMakeLists.txt
 
 *.zip
+
+project_file/win32build/
