@@ -1,0 +1,21 @@
+//
+//  enemy.h
+//  PUBG
+//
+//  Created by wza on 2021/5/31.
+//
+#ifndef ENEMY_H
+#define ENEMY_H
+#include "actor.h"
+#include "const.h"
+class enemy :public actor
+{
+public:
+	enemy(int x = 200,int y = 300);
+private:
+	
+	void update(float delta);
+	void generateVelocity(float delta);
+	Vec2 velocity = Vec2(0,0);
+};
+#endif
