@@ -8,10 +8,11 @@ Sword::Sword()
 		log("pistol.png is not found");
 	}
 	scheduleUpdate();
+	weaponType = isKnife;
 	setPower(swordPower);
 	setShootingSpeed(swordAttackSpeed);
 	setBulletCapacity(0);
-	weaponType = 2;
+
 }
 
 bool Sword::init()
@@ -29,7 +30,7 @@ void Sword::update(float dt)
 		;
 }
 
-void Sword::changeBulletamount(int mode)
+void Sword::changeBulletamount(int mode, int num)
 {
 	/*刀不产生子弹，不需要进行处理*/
 	;

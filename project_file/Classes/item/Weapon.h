@@ -5,7 +5,6 @@
 
 #include "Item.h"
 #include "Bullet.h"
-
 using namespace cocos2d;
 
 class Weapon :public Item
@@ -23,7 +22,7 @@ public:
 
 	void setBulletCapacity(int capacity);
 
-	static int getCapacity();
+	int getCapacity();
 
 	virtual void update(float dt) = 0;
 
@@ -31,7 +30,7 @@ public:
 
 	static int getNowBulletAmount();
 
-	virtual void changeBulletamount(int mode) = 0;
+	virtual void changeBulletamount(int mode,int num) = 0;
 
 	Vec2 getWeaponPosition();
 	Vec2 HeroPosition;
@@ -39,18 +38,24 @@ public:
 	int weaponType = 0;
 
 	void restoreAttackState(float dt);
-	void setAttackState(bool state);
 	virtual void Fire(Vec2 MousePosition,bool attackDirection) = 0;
 	Vec2 viewPosition;//处理相机移动问题
 
+	static int getBulletInventory(int type);
+
+	void setBulletInventory(bool mode,int num,int type);//mode1为增加，，0为减少
+
+	void setAttackState(bool state);
 protected:
 	Sprite* MouseImage;
     Bullet*  myBullet;
 	int MyWeaponPower = 0;
 	float ShootingSpeed = 0;
-	static int BulletCapacity;
-	static int nowBulletAmount;
-	bool AttackState = true;
 	
+	static int nowBulletAmount;//该武器在弹夹中的子弹数量
+	bool AttackState = true;
+	static int nowBulletInventory_1;//现背包中该手枪的子弹数量
+	static int nowBulletInventory_2;//现背包中该步枪的子弹数量
+	int BulletCapacity;//手枪的子弹容量
 };
 #endif

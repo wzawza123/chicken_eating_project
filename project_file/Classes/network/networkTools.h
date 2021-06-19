@@ -1,9 +1,12 @@
 #pragma once
 #include <string.h>
+#include "cocos2d.h"
 #include "RakPeerInterface.h"
 #include "MessageIdentifiers.h"
 #include "BitStream.h"
 #include "RakNetTypes.h"  // MessageID
+
+using namespace cocos2d;
 
 #define MAX_CLIENTS 10
 #define SERVER_PORT 60000
@@ -58,7 +61,7 @@ messageRecvType  myNetwork::waitForMessage(const unsigned char messageID)
 			}
 			else
 			{
-				printf("Message with identifier %i has arrived unexpectedly.\n", packet->data[0]);
+				log("Message with identifier %i has arrived unexpectedly.\n", packet->data[0]);
 			}
 		}
 	}

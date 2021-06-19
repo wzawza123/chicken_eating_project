@@ -1,7 +1,8 @@
 #include"Weapon.h"
 
 int Weapon::nowBulletAmount = 0;
-int Weapon::BulletCapacity = 0;
+int Weapon::nowBulletInventory_1 = 40;
+int Weapon::nowBulletInventory_2 = 40;
 
 Weapon::Weapon()
 {
@@ -25,14 +26,16 @@ void Weapon::setShootingSpeed(float speed)
 	ShootingSpeed = speed;
 }
 
-void Weapon::setBulletCapacity(int capacity)
+void Weapon::setBulletCapacity(const int capacity)
 {
-	BulletCapacity = capacity;
+	Weapon::BulletCapacity = capacity;
+
 }
 
 int Weapon::getCapacity()
 {
 	return BulletCapacity;
+	
 }
 
 float Weapon::getShootingSpeed()
@@ -44,7 +47,6 @@ Vec2 Weapon::getWeaponPosition()
 {
 	return mySprite->getPosition();
 }
-
 
 Sprite* Weapon::getMouseImage()
 {
@@ -60,6 +62,36 @@ void Weapon::restoreAttackState(float dt)
 {
 	AttackState = true;
 }
+
+int Weapon::getBulletInventory(int type)
+{
+	if (type == isPistol)
+		return nowBulletInventory_1;
+	else if (type == isRifle)
+		return nowBulletInventory_2;
+
+		return 0;
+
+}
+
+void Weapon::setBulletInventory(bool mode, int num,int type)
+{
+	if (mode==true)
+	{
+		if (type == isPistol)
+			nowBulletInventory_1 += num;
+		else if (type == isRifle)
+			nowBulletInventory_2 += num;
+	}
+	else
+	{
+		if (type == isPistol)
+			nowBulletInventory_1 -= num;
+		else if (type == isRifle)
+			nowBulletInventory_2 -= num;
+	}
+}
+
 void Weapon::setAttackState(bool state)
 {
 	AttackState = state;

@@ -15,7 +15,7 @@ public:
 	Sword();
 	bool init()override;
 	void update(float dt) override;
-	void changeBulletamount(int mode) override;
+	void changeBulletamount(int mode, int num) override;
 	void Fire(Vec2 MousePosition, bool attackDirection) override;
 	Animate*  attackAnimation(bool attackDirection);
 	void attackEnd(float dt);

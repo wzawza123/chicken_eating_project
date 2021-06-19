@@ -1,9 +1,10 @@
-
+#include "hero.h"
 #include "enemy.h"
 #include <cocos2d.h>
 using namespace cocos2d;
 enemy::enemy(int x,int y)
 {
+    isDead = false;
     sActorType=actorConsts::at_enemy;
     bindSprite(Sprite::create("Actor\\Monster\\O_small_monster2.png"));
     if (delegateSprite == nullptr)
@@ -16,10 +17,17 @@ enemy::enemy(int x,int y)
     bindPhysicalBody();
     scheduleUpdate();
     schedule(CC_SCHEDULE_SELECTOR(enemy::generateVelocity),  actorConsts::eneMoveUpdateTime);
+    schedule(CC_SCHEDULE_SELECTOR(enemy::following), actorConsts::eneMoveUpdateTime);
+
+    Pistol* pistol = new Pistol;
+    myWeapon = pistol;
+    SetWeaponPosition();
+
 }
 void enemy::update(float delta)
 {
-    
+    SetWeaponPosition();
+    //log("enemy %d: health:%d", enemyIndex, health);
 }
 void enemy::generateVelocity(float delta)
 {
@@ -39,5 +47,85 @@ void enemy::generateVelocity(float delta)
         }
     }
     delegateSprite->getPhysicsBody()->setVelocity(velocity);
-    log("position:%d %d", delegateSprite->getPosition().x, delegateSprite->getPosition().y);
+    //log("position:%d %d", delegateSprite->getPosition().x, delegateSprite->getPosition().y);
+}
+bool enemy::takeDamage(int power)
+{
+    health -= power;
+    if (health<=0)
+    {
+        //die();
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+void enemy::die()
+{
+    Node* parent = getParent();
+    parent->removeChild(this);
+    isDead = true;
+}
+void enemy::setIndex(int index)
+{
+    enemyIndex = index;
+}
+void enemy::following(float  delta)
+{
+    log("following ");
+    if (hero::getInstance() == nullptr)
+        return;
+    auto targetPos = hero::getInstance()->delegateSprite->getPosition();
+    auto selfPos = this->delegateSprite->getPosition();
+    auto distance = targetPos - selfPos;
+    if (distance.length() < enemyVision)
+    {
+        auto enemySpeed = distance;
+        enemySpeed.normalize();
+        enemySpeed *= actorConsts::eneMaxVol;
+        delegateSprite->getPhysicsBody()->setVelocity(enemySpeed);
+    }
+    if (distance.length() < fireDiatance)
+    {
+        attack();
+    }
+    if (distance.length() < kiteDiatance)
+    {
+        auto enemySpeed = distance;
+        enemySpeed.normalize();
+        enemySpeed *= actorConsts::eneMaxVol;
+        delegateSprite->getPhysicsBody()->setVelocity(-enemySpeed);
+    }
+    else
+    {
+        return;
+    }
+}
+void enemy::SetWeaponPosition()
+{
+    //log("weapon position%d %d", this->delegateSprite->getPosition().x, this->delegateSprite->getPosition().y);
+    if (myWeapon != nullptr)
+    {
+        myWeapon->HeroPosition = this->delegateSprite->getPosition();
+        myWeapon->getSprite() ->setPosition(myWeapon->HeroPosition.x + 24, myWeapon->HeroPosition.y - 5);
+    }
+    else
+    {
+    }
+}
+void enemy::attack()
+{
+    auto targetPos = hero::getInstance()->delegateSprite->getPosition();
+    auto selfPos = this->delegateSprite->getPosition();
+
+    auto distance = targetPos - selfPos;
+    auto shootVec = distance;
+    shootVec.normalize();
+    Bullet* newBullet;
+    newBullet = myWeapon->shootBullet(200 * shootVec);
+    newBullet->setCameraMask((unsigned short)CameraFlag::USER2);
+    getParent()->addChild(newBullet, 1, tagConsts::tagBullet);
+    return;
 }

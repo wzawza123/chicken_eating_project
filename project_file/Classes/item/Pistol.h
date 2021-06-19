@@ -12,11 +12,10 @@ class Pistol :public Weapon
 public:
 	Pistol();
 	Bullet* shootBullet(Vec2 vec);
-	void changeBulletamount(int mode) override;
+	void changeBulletamount(int mode, int num) override;
 	bool init() override;
 	void update(float dt) override;
 	void Fire(Vec2 MousePosition, bool attackDirection) override;
-
 	CREATE_FUNC(Pistol);
 };
 

@@ -18,3 +18,7 @@ project_file/CMakeLists.txt
 *.zip
 
 project_file/win32build/
+
+*.rar
+
+project_file/backup/

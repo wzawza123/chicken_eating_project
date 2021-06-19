@@ -1,20 +1,18 @@
 #include"Pistol.h"
 
-
 Pistol::Pistol()
 {
-	Size winSize = Director::getInstance()->getWinSize();
 	bindSprite(Sprite::create("pistol.png"));
 	if (mySprite == nullptr)
 	{
 		log("pistol.png is not found");
 	}
 	scheduleUpdate();
-
+	weaponType = isPistol;
 	setPower(pistolPower);
 	setBulletCapacity(pistolBulletCapacity);
 	setShootingSpeed(pistolShottingSpeed);
-	weaponType = 1;
+	
 }
 
 bool Pistol::init()
@@ -24,7 +22,12 @@ bool Pistol::init()
 
 void Pistol::update(float dt) 
 {
-	mySprite->setPosition(HeroPosition);
+	if (getState() == false)
+		;
+	else
+	{
+		mySprite->setPosition(HeroPosition);
+	}
 }
 
 Bullet* Pistol::shootBullet(Vec2 vec)
@@ -35,7 +38,7 @@ Bullet* Pistol::shootBullet(Vec2 vec)
 	return newBullet;
 }
 
-void Pistol::changeBulletamount(int mode)
+void Pistol::changeBulletamount(int mode, int num)
 {
 	switch (mode)
 	{
@@ -44,6 +47,9 @@ void Pistol::changeBulletamount(int mode)
 			break;
 		case 2:
 			nowBulletAmount = pistolBulletCapacity;
+			break;
+		case 3:
+			nowBulletAmount += num;
 			break;
 	}
 }
@@ -66,7 +72,7 @@ void Pistol::Fire(Vec2 MousePosition, bool attackDirection)
 		newBullet->setCameraMask((unsigned short)CameraFlag::USER2);
 		addChild(newBullet, 1, tagConsts::tagBullet);
 
-		changeBulletamount(1);//×Óµ¯µ¯¼Ð¼õÉÙ
+		changeBulletamount(1,0);//×Óµ¯µ¯¼Ð¼õÉÙ
 		log("Fire!!!");
 		log("Bullet number is %d", getNowBulletAmount());
 
@@ -78,4 +84,3 @@ void Pistol::Fire(Vec2 MousePosition, bool attackDirection)
 		log("Bullets is ran out");
 	}
 }
-
